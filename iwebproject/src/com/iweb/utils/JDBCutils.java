@@ -1,5 +1,4 @@
 package com.iweb.utils;
-
 import org.testng.annotations.Test;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -8,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+
+/**
+ * 关于JDBC的工具类，集成了数据库连接，数据库关闭，增删改查的操作
+ * 具体说明看方法上的注释，不然会出bug
+ */
 public class JDBCutils {
 
 
@@ -30,18 +34,18 @@ public class JDBCutils {
      * @throws Exception
      */
     public static Connection getConnecton() throws Exception{
-        //加载并读取Properties文件
-        InputStream resourceAsStream = ClassLoader.getSystemClassLoader().getResourceAsStream("JDBC.properties");
+        //实现了数据和代码的分离
+        //修改配置文件信息不需要重新打包
+        InputStream is = JDBCutils.class.getClassLoader().getResourceAsStream("JDBC.properties");
         Properties properties = new Properties();
-        properties.load(resourceAsStream);
-        String driver = properties.getProperty("Driver");
+        properties.load(is);
         String user = properties.getProperty("user");
         String password = properties.getProperty("password");
         String url = properties.getProperty("url");
-        //加载驱动
-        Class.forName(driver);
-        //获取连接
+        String driverClass = properties.getProperty("driverClass");
+        Class.forName(driverClass);
         Connection connection = DriverManager.getConnection(url, user, password);
+//        System.out.println(connection);
         return connection;
     }
 

@@ -7,6 +7,8 @@ import java.util.Scanner;
  SelectMenuUtils工具类：
  将不同的功能封装为方法，就是可以直接通过调用方法使用它的功能，而无需考虑具体的功能实现细节。
  注意：该工具类仅在后端使用，用于命令行读取用户选择等
+ 实现了读取数字，读取字符，读取Y和N，以及如果直接按回车的话就返回默认值的操作
+ 在没有默认值的方法中都过滤了回车空格，放心使用
  */
 public class SelectMenuUtils {
     private static Scanner scanner = new Scanner(System.in);
