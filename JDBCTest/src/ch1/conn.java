@@ -17,6 +17,9 @@ public class conn {
         Connection connect = driver.connect(url, info);
         System.out.println(connect);
     }
+
+
+
     @Test
     public void test2() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         //反射操作，没有用第三方api
@@ -34,13 +37,15 @@ public class conn {
     public void test3() throws ClassNotFoundException, IllegalAccessException, InstantiationException, SQLException {
         Class clazz = Class.forName("com.mysql.jdbc.Driver");
         Driver driver = (Driver) clazz.newInstance();
-
+        //基本信息
         String url="jdbc:mysql://localhost:3306/test";
         String user="root";
         String password="123456";
+        //注册驱动
         DriverManager.registerDriver(driver);
 
         Connection connection = DriverManager.getConnection(url, user, password);
+
         System.out.println(connection);
 
     }
@@ -50,14 +55,17 @@ public class conn {
         String url="jdbc:mysql://localhost:3306/test";
         String user="root";
         String password="123456";
+        //主要代码
         Class.forName("com.mysql.jdbc.Driver");
-//在MySQL的实现类中静态代码块加载了驱动
+//在MySQL的实现类中静态代码块加载了驱动 DriverManager.registerDriver(driver);
         Connection connection = DriverManager.getConnection(url, user, password);
+
         System.out.println(connection);
     }
 
     @Test
     public void test4_1() throws Exception {
+        //获取oracle的连接
         Class.forName("oracle.jdbc.OracleDriver");
         java.sql.Connection connection=java.sql.DriverManager.getConnection
                 ("jdbc:oracle:thin:@192.168.77.100:1521:helowin ","scott","123456");
